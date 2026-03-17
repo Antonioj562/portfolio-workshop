@@ -80,7 +80,106 @@ body {
 
 </details>
 
-## defining the layout
+## importing projects
+
+```jsx
+interface Project {
+  url: string;
+  frontmatter: {
+    title: string;
+    type: string;
+    image: string;
+  };
+}
+
+const projects = Object.values(
+  import.meta.glob<Project>('./projects/*.md', { eager: true }),
+);
+```
+
+## creating project cards
+
+```jsx
+{
+  projects.map((project) => (
+    <a
+      href={project.url}
+      class='flex flex-col gap-2.5 bg-olive-100 rounded-xl p-9 h-[400px] '
+    >
+      <div class='w-full flex h-full items-center justify-center'>
+        <img
+          src={project.frontmatter.image}
+          alt={project.frontmatter.title}
+          class='w-full object-cover rounded-xl shadow-md object-top'
+        />
+      </div>
+      <div class='flex justify-between items-center gap-2.5 text-black/50'>
+        <h2 class='font-medium'>{project.frontmatter.title}</h2>
+        <p>{project.frontmatter.type}</p>
+      </div>
+    </a>
+  ));
+}
+```
+
+## defining the project layout
+
+```jsx
+---
+import Layout from './Layout.astro';
+const frontmatter = Astro.props.frontmatter;
+---
+
+<Layout title={frontmatter.title}>
+  <main class='container mx-auto px-6'>
+    <section class='flex flex-col gap-12'>
+      <div
+        class='w-full h-[400px] flex bg-olive-100 rounded-xl items-center justify-center p-9'
+      >
+        <img
+          class='w-full md:h-full object-cover rounded-xl shadow-md object-top'
+          src={frontmatter.image}
+          alt={frontmatter.title}
+        />
+      </div>
+      <div class='flex flex-col md:flex-row justify-between items-center gap-4'>
+        <div class='flex flex-col gap-6'>
+          <h1 class='text-5xl font-medium'>{frontmatter.title}</h1>
+          <p>{frontmatter.description}</p>
+        </div>
+        <a
+          href={frontmatter.projecturl}
+          target='_blank'
+          class='flex justify-center items-center gap-2.5 px-4 py-3 rounded-xl border border-olive-100 bg-olive-600 text-white w-full md:w-auto'
+        >
+          View Project
+        </a>
+      </div>
+      <div class='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <div>
+          <p class='font-medium text-black/50'>Role</p>
+          <ul class='flex flex-col'>
+            {frontmatter.role.map((role: string) => <li>{role}</li>)}
+          </ul>
+        </div>
+        <div>
+          <p class='font-medium text-black/50'>Tools</p>
+          <ul class='flex flex-col'>
+            {frontmatter.tools.map((tool: string) => <li>{tool}</li>)}
+          </ul>
+        </div>
+        <div>
+          <p class='font-medium text-black/50'>Duration</p>
+          <p>{frontmatter.duration}</p>
+        </div>
+      </div>
+    </section>
+    <section class='py-32 prose mx-auto'>
+      <slot />
+    </section>
+  </main>
+</Layout>
+```
 
 the home page automatically picks up any `.md` file in the `projects/` folder 🌱
 

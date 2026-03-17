@@ -1,18 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-interface Project {
-  url: string;
-  frontmatter: {
-    title: string;
-    type: string;
-    image: string;
-  };
-}
-
-const projects = Object.values(
-  import.meta.glob<Project>('./projects/*.md', { eager: true }),
-);
 ---
 
 <Layout title='Home'>
