@@ -1,7 +1,7 @@
 # personal portfolio workshop 🌐
 
 <video controls width="640">
-  <source src="https://github.com/janrebolledo/portfolio-workshop/raw/refs/heads/main/demo.mov" type="video/mp4">
+  <source src="https://github.com/janrebolledo/portfolio-workshop/raw/refs/heads/master/demo.mp4" type="video/mp4">
   your browser does not support the video tag.
 </video>
 
