@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Project {
+  url: string;
+  frontmatter: {
+    title: string;
+    type: string;
+    image: string;
+  };
+}
+
+const projects = Object.values(
+  import.meta.glob<Project>('./projects/*.md', { eager: true }),
+);
+---
+
+<Layout title='Home'>
+  <section class='container mx-auto px-6 flex flex-col gap-4 py-32'>
+    <h1 class='text-4xl font-medium'>
+      I&apos;m Billy Bronco, a software engineer in Pomona, CA.
+      <br />
+      I create scalable, thoughtful, applications for startups.
+    </h1>
+    <p>
+      Currently studying computer science at Cal Poly Pomona, graduating May
+      2029.
+    </p>
+  </section>
+  <section class='container mx-auto px-6 flex flex-col py-32 gap-8'>
+    <p class='font-medium text-black/50'>Projects</p>
+    <div class='grid grid-cols-1 md:grid-cols-3 gap-5'>
+      {
+        projects.map((project) => (
+          <a
+            href={project.url}
+            class='flex flex-col gap-2.5 bg-olive-100 rounded-xl p-9 h-[400px] '
+          >
+            <div class='w-full flex h-full items-center justify-center'>
+              <img
+                src={project.frontmatter.image}
+                alt={project.frontmatter.title}
+                class='w-full object-cover rounded-xl shadow-md object-top'
+              />
+            </div>
+            <div class='flex justify-between items-center gap-2.5 text-black/50'>
+              <h2 class='font-medium'>{project.frontmatter.title}</h2>
+              <p>{project.frontmatter.type}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

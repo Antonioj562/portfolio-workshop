@@ -1,43 +1,87 @@
-# Astro Starter Kit: Minimal
+# personal portfolio workshop 🌐
+
+<video controls width="640">
+  <source src="https://github.com/janrebolledo/portfolio-workshop/raw/refs/heads/main/demo.mov" type="video/mp4">
+  your browser does not support the video tag.
+</video>
+
+intro:
+what is a personal portfolio, why build one, project visibility & personal branding, how will we design it, what tools we use (astro, tailwind, markdown)
+
+resources:
+
+- [astro docs](https://docs.astro.build/)
+- [tailwind docs](https://tailwindcss.com/docs)
+- [workshop slides](https://www.figma.com/deck/ta8dqRu8qSGhYYO88FIgWV/Jan-for-CSS---SEA---Personal-Website?node-id=1-42&t=wuSt3EkUVWGkS5Td-1)
+- [figma design](https://www.figma.com/design/JrVxg7qCZgJhausEqRz3xl/Jan-for-CSS---SEA---Personal-Website?node-id=0-1&t=iHVXTtfxG9oQkNbg-1)
+
+prereqs:
+
+- [vscode](https://code.visualstudio.com/download)
+- [node + npm](https://nodejs.org/en/download)
+
+post workshop exploration:
+
+- add an about page
+- [connect a cms](https://docs.astro.build/en/guides/cms/) for managing content
+
+<details>
+<summary>scaffolding the project from scratch</summary>
+
+initialize astro project
 
 ```sh
 npm create astro@latest -- --template minimal
 ```
 
-## 🚀 Project Structure
+add project dependencies
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npx astro add tailwind mdx
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+```sh
+npm install -D @tailwindcss/typography
+```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+create `layouts` & `projects` folders in `/src`
 
-Any static assets, like images, can be placed in the `public/` directory.
+```sh
+mkdir ./src/pages/projects && mkdir ./src/layouts
+```
 
-## 🧞 Commands
+start the development server
 
-All commands are run from the root of the project, from a terminal:
+```sh
+npm run dev
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+add a web font
 
-## 👀 Want to learn more?
+```css
+/* globals.css */
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
-npx astro add tailwind mdx
+@theme {
+  --font-sans: 'Inter', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@view-transition {
+  navigation: auto;
+}
+```
+
+</details>
+
+## defining the layout
+
+the home page automatically picks up any `.md` file in the `projects/` folder 🌱
+
+created with 🫶 by jan rebolledo, for software engineering association & computer science society @ california state polytechnic university, pomona
