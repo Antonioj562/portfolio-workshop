@@ -1,5 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+interface Project {
+  url: string;
+  frontmatter: {
+    title: string;
+    type: string;
+    image: string;
+  };
+}
+
+const projects = Object.values(
+  import.meta.glob<Project>('./projects/*.md', { eager: true })
+);
 ---
 
 <Layout title='Home'>
@@ -14,10 +27,28 @@ import Layout from '../layouts/Layout.astro';
       2029.
     </p>
   </section>
+
   <section class='container mx-auto px-6 flex flex-col py-32 gap-8'>
     <p class='font-medium text-black/50'>Projects</p>
+
     <div class='grid grid-cols-1 md:grid-cols-3 gap-5'>
-      <!-- project cards here -->
+      {projects.map((project) => (
+        <a
+          href={project.url}
+          class='flex flex-col gap-3 bg-gray-100 rounded-xl p-6 h-[350px]'
+        >
+          <img
+            src={project.frontmatter.image}
+            alt={project.frontmatter.title}
+            class='w-full h-[200px] object-cover rounded-lg'
+          />
+
+          <div class='flex justify-between text-black/60'>
+            <h2 class='font-medium'>{project.frontmatter.title}</h2>
+            <p>{project.frontmatter.type}</p>
+          </div>
+        </a>
+      ))}
     </div>
   </section>
 </Layout>

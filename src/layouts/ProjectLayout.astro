@@ -1,0 +1,57 @@
+---
+import Layout from './Layout.astro';
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <main class="container mx-auto px-6 py-32 flex flex-col gap-12">
+    <section class="flex flex-col gap-8">
+      <img
+        src={frontmatter.image}
+        alt={frontmatter.title}
+        class="w-full h-[400px] object-cover rounded-xl shadow-md"
+      />
+
+      <div class="flex flex-col md:flex-row justify-between gap-8">
+        <div class="flex flex-col gap-4 max-w-xl">
+          <h1 class="text-4xl font-medium">{frontmatter.title}</h1>
+          <p>{frontmatter.description}</p>
+        </div>
+
+        <a
+          href={frontmatter.projecturl}
+          target="_blank"
+          class="px-6 py-3 rounded-xl bg-black text-white w-fit"
+        >
+          View Project
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-black/70">
+        <div>
+          <p class="font-medium text-black/50">Role</p>
+          <ul>
+            {frontmatter.role.map((r) => <li>{r}</li>)}
+          </ul>
+        </div>
+
+        <div>
+          <p class="font-medium text-black/50">Tools</p>
+          <ul>
+            {frontmatter.tools.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+
+        <div>
+          <p class="font-medium text-black/50">Duration</p>
+          <p>{frontmatter.duration}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="prose max-w-3xl">
+      <slot />
+    </section>
+  </main>
+</Layout>
